@@ -4,6 +4,7 @@ import { abi } from "@/contracts/Adesso.json";
 import { type NftAbi } from "@/types/abi.interface";
 import type { NFT } from "@/types/nft.interface";
 import { IpfsToHttps } from "./ipfsToHttps";
+import { sendTransactionAndWait } from "./sendTransactionAndWait";
 
 const web3 = new Web3(window.ethereum);
 const contractAddress = "0xF446adad2445302a849a6A4D6D64D8fC94E5Ad1a";
@@ -84,28 +85,19 @@ export const checkForApproval = async (tokenId: number) => {
   return isApproved;
 };
 
-export const approveForAllRequest = async (
-  completeApproval: (isApproved: boolean) => void
-) => {
+export const approveForAllRequest = async (completeApproval: () => void) => {
   try {
     const transactionParameters = {
       to: contractAddress,
       from: window.ethereum.selectedAddress,
-      value: 0,
+      value: "0",
       gasLimit: "1000000",
       data: contract.methods
         .setApprovalForAll(marketPlaceAddress, true)
         .encodeABI(),
     };
-    web3.eth
-      .sendTransaction(transactionParameters)
-      .on("confirmation", () => {
-        completeApproval(true);
-      })
-      .on("error", () => {
-        completeApproval(false);
-      });
+    sendTransactionAndWait(transactionParameters, completeApproval);
   } catch (err) {
-    completeApproval(false);
+    console.log(err);
   }
 };

@@ -58,8 +58,8 @@ watchEffect(async () => {
 });
 
 // After nft is approved, makes the changes.
-const completeApproval = (isApproved: boolean) => {
-  approved.value = isApproved;
+const completeApproval = () => {
+  approved.value = true;
   waitingTx.value = false;
 };
 

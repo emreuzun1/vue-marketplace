@@ -4,18 +4,23 @@ import { abi } from "@/contracts/Marketplace.json";
 import { abi as adessoAbi } from "@/contracts/Adesso.json";
 import { type MarketplaceAbi, type NftAbi } from "@/types/abi.interface";
 import type { Sale } from "@/types/sale.interface";
+import { sendTransactionAndWait } from "./sendTransactionAndWait";
 
 const web3 = new Web3(window.ethereum);
 const contractAddress = "0x7826d461E7ef6Ae101D903a784A15c74E6b0ED60";
 
 const contract = new web3.eth.Contract(abi as MarketplaceAbi, contractAddress);
 
-export const createSale = async (tokenId: number, price: number) => {
+export const createSale = async (
+  tokenId: number,
+  price: number,
+  onConfirm: () => void
+) => {
   const transactionParameters = {
     to: contractAddress,
-    from: window.ethereum.selectedAddress,
-    value: 0,
-    gasLimit: "0",
+    from: window.ethereum.selectedAddress as string,
+    value: "0",
+    gasLimit: "10000000",
     data: contract.methods
       .createSale(
         tokenId,
@@ -25,10 +30,7 @@ export const createSale = async (tokenId: number, price: number) => {
       .encodeABI(),
   };
 
-  const tx = await window.ethereum.request({
-    method: "eth_sendTransaction",
-    params: [transactionParameters],
-  });
+  sendTransactionAndWait(transactionParameters, onConfirm);
 };
 
 export const getAllSales = async () => {
@@ -64,34 +66,32 @@ export const buyNft = async (saleId: number, price: bigint): Promise<void> => {
   });
 };
 
-export const cancelSale = async (saleId: number) => {
+export const cancelSale = async (saleId: number, onConfirm: () => void) => {
   const transactionParameters = {
     to: contractAddress,
     from: window.ethereum.selectedAddress,
-    value: 0,
+    value: "0",
     gasLimit: "0",
     data: contract.methods.cancelSale(Number(saleId)).encodeABI(),
   };
 
-  await window.ethereum.request({
-    method: "eth_sendTransaction",
-    params: [transactionParameters],
-  });
+  sendTransactionAndWait(transactionParameters, onConfirm);
 };
 
-export const editSale = async (saleId: number, newPrice: number) => {
+export const editSale = async (
+  saleId: number,
+  newPrice: number,
+  onConfirm: () => void
+) => {
   const transactionParameters = {
     to: contractAddress,
     from: window.ethereum.selectedAddress,
-    value: 0,
+    value: "0",
     gasLimit: "0",
     data: contract.methods
       .editSale(saleId, web3.utils.toWei(newPrice, "ether"))
       .encodeABI(),
   };
 
-  await window.ethereum.request({
-    method: "eth_sendTransaction",
-    params: [transactionParameters],
-  });
+  sendTransactionAndWait(transactionParameters, onConfirm);
 };
