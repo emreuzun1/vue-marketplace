@@ -29,3 +29,6 @@ cd vue-marketplace
 npm i
 npm run dev
 ```
+
+## To Get Sepolia ETH
+[Sepolia Faucet](https://sepoliafaucet.com/)
