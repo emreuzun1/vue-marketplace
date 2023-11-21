@@ -1,7 +1,7 @@
 declare var window: any;
 import Web3 from "web3";
 import { abi } from "@/contracts/Marketplace.json";
-import { abi as adessoAbi } from "@/contracts/AdessoOKR.json";
+import { abi as adessoAbi } from "@/contracts/Adesso.json";
 import { type MarketplaceAbi, type NftAbi } from "@/types/abi.interface";
 import type { Sale } from "@/types/sale.interface";
 
@@ -19,7 +19,7 @@ export const createSale = async (tokenId: number, price: number) => {
     data: contract.methods
       .createSale(
         tokenId,
-        "0x7B917d4e12AA0a82eE04F3bd938bd1e44d0cfe5E",
+        "0xF446adad2445302a849a6A4D6D64D8fC94E5Ad1a",
         web3.utils.toWei(price, "ether")
       )
       .encodeABI(),

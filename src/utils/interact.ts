@@ -1,12 +1,12 @@
 declare var window: any;
 import Web3 from "web3";
-import { abi } from "@/contracts/AdessoOKR.json";
+import { abi } from "@/contracts/Adesso.json";
 import { type NftAbi } from "@/types/abi.interface";
 import type { NFT } from "@/types/nft.interface";
 import { IpfsToHttps } from "./ipfsToHttps";
 
 const web3 = new Web3(window.ethereum);
-const contractAddress = "0x7B917d4e12AA0a82eE04F3bd938bd1e44d0cfe5E";
+const contractAddress = "0xF446adad2445302a849a6A4D6D64D8fC94E5Ad1a";
 const marketPlaceAddress = "0x7826d461E7ef6Ae101D903a784A15c74E6b0ED60";
 
 const contract = new web3.eth.Contract(abi as NftAbi, contractAddress);
@@ -66,7 +66,7 @@ export const mint = async (quantityAmount: number) => {
     to: contractAddress,
     from: window.ethereum.selectedAddress,
     value: parseInt(
-      (parseInt(web3.utils.toWei(0.01, "ether")) * quantityAmount).toString()
+      (parseInt(web3.utils.toWei(0.001, "ether")) * quantityAmount).toString()
     ).toString(16),
     gasLimit: "0",
     data: contract.methods.mint(quantityAmount).encodeABI(),
@@ -92,6 +92,7 @@ export const approveForAllRequest = async (
       to: contractAddress,
       from: window.ethereum.selectedAddress,
       value: 0,
+      gasLimit: "1000000",
       data: contract.methods
         .setApprovalForAll(marketPlaceAddress, true)
         .encodeABI(),

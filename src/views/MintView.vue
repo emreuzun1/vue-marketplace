@@ -25,7 +25,7 @@
       Mint Now!
     </button>
     <p class="text-3xl mt-4">
-      Price : {{ (0.01 * mintQuantity).toFixed(2) }} Eth
+      Price : {{ (0.001 * mintQuantity).toFixed(3) }} Eth
     </p>
   </div>
 </template>

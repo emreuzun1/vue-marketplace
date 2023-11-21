@@ -1,12 +1,6 @@
 export type NftAbi = [
   {
-    inputs: [
-      {
-        internalType: "address";
-        name: "initialOwner";
-        type: "address";
-      }
-    ];
+    inputs: [];
     stateMutability: "nonpayable";
     type: "constructor";
   },
@@ -676,25 +670,6 @@ export type NftAbi = [
     name: "transferOwnership";
     outputs: [];
     stateMutability: "nonpayable";
-    type: "function";
-  },
-  {
-    inputs: [
-      {
-        internalType: "address";
-        name: "";
-        type: "address";
-      }
-    ];
-    name: "walletMints";
-    outputs: [
-      {
-        internalType: "uint256";
-        name: "";
-        type: "uint256";
-      }
-    ];
-    stateMutability: "view";
     type: "function";
   }
 ];
