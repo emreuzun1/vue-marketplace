@@ -2,6 +2,7 @@
 import { watchEffect, computed, ref, type Ref } from "vue";
 import { authStore } from "@/stores/auth";
 import { salesStore } from "@/stores/sales";
+import { loadingStore } from "@/stores/loading";
 import SaleModal from "@/components/SaleModal.vue";
 import NftCard from "@/components/NftCard.vue";
 import NftCardButton from "@/components/NftCardButton.vue";
@@ -9,6 +10,7 @@ import { buyNft, cancelSale } from "@/utils/marketplace";
 import editSvg from "@/assets/icons/edit.svg";
 import cancelSvg from "@/assets/icons/cancel.svg";
 import type { Sale } from "@/types/sale.interface";
+const { setLoading } = loadingStore();
 const store = authStore();
 const saleStore = salesStore();
 const modal: Ref<null | { modalRef: HTMLDialogElement }> = ref(null);
@@ -24,6 +26,15 @@ watchEffect(async () => {
 const editSale = (sale: Sale) => {
   selectedSale.value = sale;
   modal?.value?.modalRef.showModal();
+};
+
+const remove = (sale: Sale) => {
+  setLoading(true);
+  cancelSale(sale.saleId, location.reload, onDeny);
+};
+
+const onDeny = () => {
+  setLoading(false);
 };
 
 // Any account changes in metamask, will be listen by this function
@@ -45,7 +56,7 @@ store.accountListener();
           >
             <button
               class="absolute w-24 h-24 transition-all ease-in-out bg-white rounded-full -right-24 -top-24 btn btn-primary group-hover:-right-12 group-hover:-top-12"
-              @click="cancelSale(sale.saleId)"
+              @click="remove(sale)"
             >
               <img
                 :src="cancelSvg"

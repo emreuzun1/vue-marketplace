@@ -62,7 +62,11 @@ export const getNfts = async (account: string) => {
   return nftArray;
 };
 
-export const mint = async (quantityAmount: number) => {
+export const mint = async (
+  quantityAmount: number,
+  onComplete: () => void,
+  onDeny: () => void
+) => {
   const transactionParameters = {
     to: contractAddress,
     from: window.ethereum.selectedAddress,
@@ -72,10 +76,8 @@ export const mint = async (quantityAmount: number) => {
     gasLimit: "0",
     data: contract.methods.mint(quantityAmount).encodeABI(),
   };
-  await window.ethereum.request({
-    method: "eth_sendTransaction",
-    params: [transactionParameters],
-  });
+
+  sendTransactionAndWait(transactionParameters, onComplete, onDeny);
 };
 
 export const checkForApproval = async (tokenId: number) => {

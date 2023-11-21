@@ -20,7 +20,7 @@
     <button
       class="btn btn-neutral mt-2"
       :disabled="!!!store.auth"
-      @click="mint(mintQuantity)"
+      @click="_mint"
     >
       Mint Now!
     </button>
@@ -32,7 +32,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { authStore } from "@/stores/auth";
+import { loadingStore } from "@/stores/loading";
 import { mint } from "@/utils/interact";
+const { setLoading } = loadingStore();
 const store = authStore();
 const mintQuantity = ref<number>(1);
 const srcIndex = ref<number>(1);
@@ -42,6 +44,19 @@ const src = computed<string>(() => {
 setInterval(() => {
   srcIndex.value = (srcIndex.value % 10) + 1;
 }, 1500);
+
+const _mint = () => {
+  setLoading(true);
+  mint(mintQuantity.value, onComplete, onDeny);
+};
+
+const onComplete = () => {
+  location.reload();
+};
+
+const onDeny = () => {
+  setLoading(false);
+};
 
 const quantityAction = (add: boolean) => {
   if (add && mintQuantity.value < 50) {

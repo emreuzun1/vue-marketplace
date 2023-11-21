@@ -9,7 +9,8 @@ interface TransactionParameter {
 
 export const sendTransactionAndWait = async (
   transactionParameters: TransactionParameter,
-  onConfirm: () => void
+  onConfirm: () => void,
+  onDeny?: () => void
 ) => {
   try {
     const txHash = await window.ethereum.request({
@@ -20,7 +21,7 @@ export const sendTransactionAndWait = async (
     const receipt = await waitForTransactionReceipt(txHash);
     if (receipt) onConfirm();
   } catch (err) {
-    console.log(err);
+    if (onDeny) onDeny();
   }
 };
 

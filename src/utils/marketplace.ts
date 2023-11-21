@@ -14,23 +14,28 @@ const contract = new web3.eth.Contract(abi as MarketplaceAbi, contractAddress);
 export const createSale = async (
   tokenId: number,
   price: number,
-  onConfirm: () => void
+  onConfirm: () => void,
+  onDeny?: () => void
 ) => {
-  const transactionParameters = {
-    to: contractAddress,
-    from: window.ethereum.selectedAddress as string,
-    value: "0",
-    gasLimit: "10000000",
-    data: contract.methods
-      .createSale(
-        tokenId,
-        "0xF446adad2445302a849a6A4D6D64D8fC94E5Ad1a",
-        web3.utils.toWei(price, "ether")
-      )
-      .encodeABI(),
-  };
+  try {
+    const transactionParameters = {
+      to: contractAddress,
+      from: window.ethereum.selectedAddress as string,
+      value: "0",
+      gasLimit: "10000000",
+      data: contract.methods
+        .createSale(
+          tokenId,
+          "0xF446adad2445302a849a6A4D6D64D8fC94E5Ad1a",
+          web3.utils.toWei(price, "ether")
+        )
+        .encodeABI(),
+    };
 
-  sendTransactionAndWait(transactionParameters, onConfirm);
+    sendTransactionAndWait(transactionParameters, onConfirm, onDeny);
+  } catch (err) {
+    if (onDeny) onDeny();
+  }
 };
 
 export const getAllSales = async () => {
@@ -66,7 +71,11 @@ export const buyNft = async (saleId: number, price: bigint): Promise<void> => {
   });
 };
 
-export const cancelSale = async (saleId: number, onConfirm: () => void) => {
+export const cancelSale = async (
+  saleId: number,
+  onConfirm: () => void,
+  onDeny: () => void
+) => {
   const transactionParameters = {
     to: contractAddress,
     from: window.ethereum.selectedAddress,
@@ -75,13 +84,14 @@ export const cancelSale = async (saleId: number, onConfirm: () => void) => {
     data: contract.methods.cancelSale(Number(saleId)).encodeABI(),
   };
 
-  sendTransactionAndWait(transactionParameters, onConfirm);
+  sendTransactionAndWait(transactionParameters, onConfirm, onDeny);
 };
 
 export const editSale = async (
   saleId: number,
   newPrice: number,
-  onConfirm: () => void
+  onConfirm: () => void,
+  onDeny: () => void
 ) => {
   const transactionParameters = {
     to: contractAddress,
@@ -93,5 +103,5 @@ export const editSale = async (
       .encodeABI(),
   };
 
-  sendTransactionAndWait(transactionParameters, onConfirm);
+  sendTransactionAndWait(transactionParameters, onConfirm, onDeny);
 };
