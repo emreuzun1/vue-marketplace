@@ -1,50 +1,34 @@
 # Vue-Marketplace
-
 ## _The fastest and famous Marketplace ever_
 
 ![Solidity](https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![DaisyUI](https://img.shields.io/badge/daisyui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-Vue-Marketplace is a marketplace that you can sell or buy `AdessoOKR` NFT's.
+### Vue-Marketplace is a marketplace that you can sell or buy `Adesso` NFT's
+Th visuals of NFT's are taken from another NFT collection
 
-# vue-marketplace
+## Tech
 
-This template should help get you started developing with Vue 3 in Vite.
+- It is written with [VueJS](https://vuejs.org/) and [Typescript](https://www.typescriptlang.org/)
+- For interaction with smart contracts, used [Web3](https://github.com/web3/web3.js) library
+- [DaisyUI](https://daisyui.com/) for UI
+- [Pinia](https://pinia.vuejs.org/) for state management
 
-## Recommended IDE Setup
+There are two smart contracts written for this project
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+1. [Adesso](https://sepolia.etherscan.io/address/0x7B917d4e12AA0a82eE04F3bd938bd1e44d0cfe5E) for NFT [(source)](https://github.com/emreuzun1/solidity-marketplace/blob/main/contracts/Adesso.sol)
+2. [Marketplace](https://sepolia.etherscan.io/address/0x7826d461E7ef6Ae101D903a784A15c74E6b0ED60) for sell or buy [(source)](https://github.com/emreuzun1/solidity-marketplace/blob/main/contracts/Marketplace.sol)
 
-## Type Support for `.vue` Imports in TS
+> Openzeppelin released 5.0. These
+> smart contracts written by the
+> latest version (5.0)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
+## To Run 
 ```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
+cd vue-marketplace
+npm i
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+## To Get Sepolia ETH
+[Sepolia Faucet](https://sepoliafaucet.com/)
