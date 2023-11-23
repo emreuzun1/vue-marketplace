@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { type Ref, ref, inject } from "vue";
 import type { NFT } from "@/types/nft.interface";
-import ModalContent from "./ModalContent.vue";
+import ModalContent from "../modal-content/index.vue";
 import { createSale } from "@/utils/marketplace";
 import { loadingStore } from "@/stores/loading";
 defineProps<{ nft: NFT }>();

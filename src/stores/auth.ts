@@ -5,11 +5,13 @@ declare var window: any;
 export const authStore = defineStore("auth", () => {
   const auth = ref<string>();
   const connectWallet = async () => {
-    auth.value = await connectWalletRequest().then((res) => res.address);
+    const res = await connectWalletRequest();
+    auth.value = res.address;
   };
 
   const getWallet = async () => {
-    auth.value = await getWalletRequest().then((res) => res.address);
+    const res = await getWalletRequest();
+    auth.value = res.address;
   };
 
   const accountListener = () => {

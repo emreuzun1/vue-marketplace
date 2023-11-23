@@ -20,9 +20,9 @@
 </template>
 <script setup lang="ts">
 import { ref, watchEffect, type Ref } from "vue";
-import NftModal from "@/components/NftModal.vue";
-import NftCard from "@/components/NftCard.vue";
-import NftCardButton from "@/components/NftCardButton.vue";
+import NftModal from "@/components/nft-modal/index.vue";
+import NftCard from "@/components/nft-card/index.vue";
+import NftCardButton from "@/components/nft-card-button/index.vue";
 import { authStore } from "@/stores/auth";
 import { getNfts } from "@/utils/interact";
 import { type NFT } from "@/types/nft.interface";

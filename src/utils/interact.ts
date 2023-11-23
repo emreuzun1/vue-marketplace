@@ -34,7 +34,7 @@ export const getWalletRequest = async () => {
 export const connectWalletRequest = async () => {
   if (window.ethereum) {
     try {
-      const accounts = await window.ethereum.request({
+      const accounts: string[] = await window.ethereum.request({
         method: "eth_accounts",
       });
       return {

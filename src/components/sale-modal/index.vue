@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import type { Sale } from "@/types/sale.interface";
 import { ref, type Ref } from "vue";
-import ModalContent from "./ModalContent.vue";
+import ModalContent from "../modal-content/index.vue";
 import { editSale } from "@/utils/marketplace";
 import { loadingStore } from "@/stores/loading";
 const { setLoading } = loadingStore();
